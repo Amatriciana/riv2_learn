@@ -6,8 +6,34 @@ class BmiCalculator extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return const Scaffold(
-      body: Text('bmi_calculator'),
+    return Scaffold(
+      body: Form(
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('結果: '),
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: '身長',
+                  hintText: '身長を入力',
+                ),
+              ),
+              TextFormField(
+                decoration: const InputDecoration(
+                  labelText: '体重',
+                  hintText: '体重を入力',
+                ),
+              ),
+              ElevatedButton(
+                child: const Text('計算'),
+                onPressed: () {},
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
