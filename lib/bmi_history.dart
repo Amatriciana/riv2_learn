@@ -9,17 +9,41 @@ class BmiHistory extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final aaa = ref.watch(bmiHistoryProvider);
-    final bbb = ref.watch(bmiHistoryProvider.notifier);
+    final bmiHistoryList = ref.watch(bmiHistoryProvider);
+    final bmiHistoryState = ref.watch(bmiHistoryProvider.notifier);
 
     useEffect(() {
-      bbb.getDb();
+      bmiHistoryState.getDb();
       return null;
     }, []);
 
     return Scaffold(
-      body: Text(
-        aaa.toString(),
+      body: ListView.builder(
+        itemCount: bmiHistoryList.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Dismissible(
+            key: UniqueKey(),
+            child: Column(
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(width: 1, color: Colors.grey),
+                    ),
+                  ),
+                  child: ListTile(
+                    title: Text(
+                      'ID: ${bmiHistoryList[index]['id']}  '
+                      '身長: ${bmiHistoryList[index]['height']}  '
+                      '体重: ${bmiHistoryList[index]['weight']}  '
+                      'BMI: ${bmiHistoryList[index]['result']}',
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
     );
   }

@@ -54,6 +54,7 @@ class BmiHistoryDbController extends StateNotifier<List> {
       maps.length,
       (index) {
         return BmiHistoryDatabase(
+          id: maps[index]['id'],
           result: maps[index]['result'],
           height: maps[index]['height'],
           weight: maps[index]['weight'],
