@@ -20,7 +20,6 @@ Future<void> main() async {
   await Future.wait(
     [
       Future(() async {
-        //TODO この処理間違ってる気がする
         database = openDatabase(
           join(await getDatabasesPath(), 'bmi_database.db'),
           onCreate: (db, version) {
