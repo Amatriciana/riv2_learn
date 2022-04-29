@@ -18,3 +18,18 @@ class CounterController extends StateNotifier<int> {
   void decrement() => state--;
   void clear() => state = 0;
 }
+
+final bmiCalcProvider =
+    StateNotifierProvider.autoDispose<BmiCalcController, String>(
+  (ref) => BmiCalcController(),
+);
+
+class BmiCalcController extends StateNotifier<String> {
+  BmiCalcController() : super('');
+
+  void calculate(height, weight) {
+    double bmi = double.parse(weight) /
+        ((double.parse(height) * double.parse(height) / 10000));
+    state = bmi.toStringAsFixed(2);
+  }
+}
