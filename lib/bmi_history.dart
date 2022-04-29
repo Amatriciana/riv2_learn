@@ -42,6 +42,9 @@ class BmiHistory extends HookConsumerWidget {
                 ),
               ],
             ),
+            onDismissed: (d) {
+              bmiHistoryState.deleteDb(bmiHistoryList[index]['id']);
+            },
           );
         },
       ),

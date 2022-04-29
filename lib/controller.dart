@@ -43,7 +43,6 @@ class BmiCalcController extends StateNotifier<String> {
       weight: double.parse(weight),
     );
     await _read(bmiHistoryDbProvider.notifier).insertBmiHistory(bmiHistory);
-    print(bmiHistory);
   }
 }
 
@@ -61,5 +60,9 @@ class BmiHistoryController extends StateNotifier<List> {
       bbb.add(element.toMap());
     }
     state = bbb;
+  }
+
+  Future<void> deleteDb(id) async {
+    await _read(bmiHistoryDbProvider.notifier).deleteBmiHistory(id);
   }
 }
