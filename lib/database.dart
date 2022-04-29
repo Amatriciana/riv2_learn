@@ -11,7 +11,7 @@ class BmiHistoryDatabase {
       required this.weight});
 
   final int? id;
-  final double result;
+  final String result;
   final double height;
   final double weight;
 

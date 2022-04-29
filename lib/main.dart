@@ -24,7 +24,7 @@ Future<void> main() async {
           join(await getDatabasesPath(), 'bmi_database.db'),
           onCreate: (db, version) {
             return db.execute(
-                "CREATE TABLE bmi_history(id INTEGER PRIMARY KEY AUTOINCREMENT, result REAL, height REAL, weight REAL)");
+                "CREATE TABLE bmi_history(id INTEGER PRIMARY KEY AUTOINCREMENT, result TEXT, height REAL, weight REAL)");
           },
           version: 1,
         );

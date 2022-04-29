@@ -43,6 +43,10 @@ class BmiCalculator extends HookConsumerWidget {
                     heightTextEditingController.text,
                     weightTextEditingController.text,
                   );
+                  calculateState.setDb(
+                    heightTextEditingController.text,
+                    weightTextEditingController.text,
+                  );
                 },
               ),
             ],
