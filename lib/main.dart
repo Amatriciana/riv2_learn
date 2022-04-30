@@ -66,9 +66,18 @@ class MyApp extends HookConsumerWidget {
           selectedItemColor: Colors.blue,
           unselectedItemColor: Colors.grey,
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.add), label: 'カウンター'),
-            BottomNavigationBarItem(icon: Icon(Icons.add), label: 'BMI計算機'),
-            BottomNavigationBarItem(icon: Icon(Icons.add), label: 'BMI履歴'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.add),
+              label: 'カウンター',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.add),
+              label: 'BMI計算機',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.add),
+              label: 'BMI履歴',
+            ),
           ],
         ),
       ),
