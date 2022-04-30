@@ -7,22 +7,17 @@ import 'counter.dart';
 import 'bmi_calculator.dart';
 import 'bmi_history.dart';
 import 'controller.dart';
+import 'database.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   late final Future<Database> database;
+
   await Future.wait(
     [
       Future(() async {
-        database = openDatabase(
-          join(await getDatabasesPath(), 'bmi_database.db'),
-          onCreate: (db, version) {
-            return db.execute(
-                "CREATE TABLE bmi_history(id INTEGER PRIMARY KEY AUTOINCREMENT, result TEXT, height REAL, weight REAL)");
-          },
-          version: 1,
-        );
+        database = DbController().dbCreate();
       })
     ],
   );

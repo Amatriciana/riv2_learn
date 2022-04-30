@@ -1,5 +1,6 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:path/path.dart';
 
 import 'controller.dart';
 
@@ -80,6 +81,19 @@ class BmiHistoryDbController extends StateNotifier<List> {
       'bmi_history',
       where: "id = ?",
       whereArgs: [id],
+    );
+  }
+}
+
+class DbController {
+  Future<Database> dbCreate() async {
+    return openDatabase(
+      join(await getDatabasesPath(), 'bmi_database.db'),
+      onCreate: (db, version) {
+        return db.execute(
+            "CREATE TABLE bmi_history(id INTEGER PRIMARY KEY AUTOINCREMENT, result TEXT, height REAL, weight REAL)");
+      },
+      version: 1,
     );
   }
 }
