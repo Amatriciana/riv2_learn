@@ -1,8 +1,13 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riv2_learn/database.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
 final databaseProvider = Provider<Future<Database>>(
+  (ref) => throw UnimplementedError(),
+);
+
+final sharedPreferencesProvider = Provider<SharedPreferences>(
   (ref) => throw UnimplementedError(),
 );
 
@@ -14,15 +19,24 @@ enum BottomNav {
   bmiHistory,
 }
 
-final counterProvider =
-    StateNotifierProvider<CounterController, int>((ref) => CounterController());
+final counterProvider = StateNotifierProvider<CounterController, int>(
+    (ref) => CounterController(ref.read));
 
 class CounterController extends StateNotifier<int> {
-  CounterController() : super(0);
+  CounterController(this._read) : super(0);
+  final Reader _read;
 
   void increment() => state++;
   void decrement() => state--;
   void clear() => state = 0;
+
+  Future<void> setCounterPrefs() async {
+    _read(sharedPreferencesProvider).setInt('count', state);
+  }
+
+  Future<void> getCounterPrefs() async {
+    state = _read(sharedPreferencesProvider).getInt('count') ?? 0;
+  }
 }
 
 final bmiCalcProvider =

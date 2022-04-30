@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'counter.dart';
@@ -13,18 +14,23 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   late final Future<Database> database;
+  late final SharedPreferences sharedPreferences;
 
   await Future.wait(
     [
       Future(() async {
         database = DbController().dbCreate();
+        sharedPreferences = await SharedPreferences.getInstance();
       })
     ],
   );
 
   runApp(
     ProviderScope(
-      overrides: [databaseProvider.overrideWithValue(database)],
+      overrides: [
+        databaseProvider.overrideWithValue(database),
+        sharedPreferencesProvider.overrideWithValue(sharedPreferences),
+      ],
       child: Consumer(
         builder: (context, ref, child) {
           return child!;
