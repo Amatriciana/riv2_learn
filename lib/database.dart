@@ -31,6 +31,7 @@ class BmiHistoryDatabase {
   }
 }
 
+//TODO Providerである必要があるのか
 final bmiHistoryDbProvider =
     StateNotifierProvider<BmiHistoryDbController, List>(
         (ref) => BmiHistoryDbController(ref.read));
