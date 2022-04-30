@@ -9,17 +9,17 @@ class BmiHistory extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bmiHistoryList = ref.watch(bmiHistoryProvider);
-    final bmiHistoryState = ref.watch(bmiHistoryProvider.notifier);
+    final bmiHistory = ref.watch(bmiHistoryProvider);
+    final bmiHistoryNotifier = ref.watch(bmiHistoryProvider.notifier);
 
     useEffect(() {
-      bmiHistoryState.getDb();
+      bmiHistoryNotifier.getDb();
       return null;
     }, []);
 
     return Scaffold(
       body: ListView.builder(
-        itemCount: bmiHistoryList.length,
+        itemCount: bmiHistory.length,
         itemBuilder: (BuildContext context, int index) {
           return Dismissible(
             key: UniqueKey(),
@@ -33,17 +33,17 @@ class BmiHistory extends HookConsumerWidget {
                   ),
                   child: ListTile(
                     title: Text(
-                      'ID: ${bmiHistoryList[index]['id']}  '
-                      '身長: ${bmiHistoryList[index]['height']}  '
-                      '体重: ${bmiHistoryList[index]['weight']}  '
-                      'BMI: ${bmiHistoryList[index]['result']}',
+                      'ID: ${bmiHistory[index]['id']}  '
+                      '身長: ${bmiHistory[index]['height']}  '
+                      '体重: ${bmiHistory[index]['weight']}  '
+                      'BMI: ${bmiHistory[index]['result']}',
                     ),
                   ),
                 ),
               ],
             ),
             onDismissed: (d) {
-              bmiHistoryState.deleteDb(bmiHistoryList[index]['id']);
+              bmiHistoryNotifier.deleteDb(bmiHistory[index]['id']);
             },
           );
         },

@@ -14,20 +14,21 @@ final sharedPreferencesProvider = Provider<SharedPreferences>(
 );
 
 // BottomNavigationBar用プロバイダ
-final bottomNavProvider = StateProvider<BottomNav>((ref) => BottomNav.counter);
+final bottomNavProvider =
+    StateProvider<BottomNav>((ref) => BottomNav.counterPage);
 
 enum BottomNav {
-  counter,
-  bmiCalc,
-  bmiHistory,
+  counterPage,
+  bmiCalcPage,
+  bmiHistoryPage,
 }
 
 // カウンターアプリ用プロバイダ
-final counterProvider = StateNotifierProvider<CounterController, int>(
-    (ref) => CounterController(ref.read));
+final counterProvider = StateNotifierProvider<CounterNotifier, int>(
+    (ref) => CounterNotifier(ref.read));
 
-class CounterController extends StateNotifier<int> {
-  CounterController(this._read) : super(0);
+class CounterNotifier extends StateNotifier<int> {
+  CounterNotifier(this._read) : super(0);
   final Reader _read;
 
   void increment() => state++; // カウント加算
@@ -47,12 +48,12 @@ class CounterController extends StateNotifier<int> {
 
 // BMI計算機用プロバイダ
 final bmiCalcProvider =
-    StateNotifierProvider.autoDispose<BmiCalcController, String>(
-  (ref) => BmiCalcController(ref.read),
+    StateNotifierProvider.autoDispose<BmiCalcNotifier, String>(
+  (ref) => BmiCalcNotifier(ref.read),
 );
 
-class BmiCalcController extends StateNotifier<String> {
-  BmiCalcController(this._read) : super('');
+class BmiCalcNotifier extends StateNotifier<String> {
+  BmiCalcNotifier(this._read) : super('');
 
   final Reader _read;
 
@@ -70,21 +71,21 @@ class BmiCalcController extends StateNotifier<String> {
       height: double.parse(height),
       weight: double.parse(weight),
     );
-    await _read(bmiHistoryDbProvider.notifier).insertBmiHistory(bmiHistory);
+    await _read(bmiDbProvider.notifier).insertBmiHistory(bmiHistory);
   }
 }
 
 // BMI履歴用プロバイダ
-final bmiHistoryProvider = StateNotifierProvider<BmiHistoryController, List>(
-    (ref) => BmiHistoryController(ref.read));
+final bmiHistoryProvider = StateNotifierProvider<BmiHistoryNotifier, List>(
+    (ref) => BmiHistoryNotifier(ref.read));
 
-class BmiHistoryController extends StateNotifier<List> {
-  BmiHistoryController(this._read) : super([]);
+class BmiHistoryNotifier extends StateNotifier<List> {
+  BmiHistoryNotifier(this._read) : super([]);
   final Reader _read;
 
   // tableからデータを取得、List<Map>型でstateに持たせる
   Future<void> getDb() async {
-    List aaa = await _read(bmiHistoryDbProvider.notifier).getBmiHistory();
+    List aaa = await _read(bmiDbProvider.notifier).getBmiHistory();
     List bbb = [];
     for (var element in aaa) {
       bbb.add(element.toMap());
@@ -94,6 +95,6 @@ class BmiHistoryController extends StateNotifier<List> {
 
   // tableからデータを削除
   Future<void> deleteDb(id) async {
-    await _read(bmiHistoryDbProvider.notifier).deleteBmiHistory(id);
+    await _read(bmiDbProvider.notifier).deleteBmiHistory(id);
   }
 }

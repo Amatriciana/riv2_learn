@@ -8,12 +8,12 @@ class CounterApp extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final count = ref.watch(counterProvider);
-    final countState = ref.watch(counterProvider.notifier);
+    final counter = ref.watch(counterProvider);
+    final counterNotifier = ref.watch(counterProvider.notifier);
 
     useEffect(() {
       Future(() async {
-        await countState.getCounterPrefs();
+        await counterNotifier.getCounterPrefs();
       });
       return null;
     }, []);
@@ -23,23 +23,23 @@ class CounterApp extends HookConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('count: $count'),
+            Text('count: $counter'),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
                   child: const Text('プラス'),
                   onPressed: () {
-                    countState.increment();
-                    countState.setCounterPrefs();
+                    counterNotifier.increment();
+                    counterNotifier.setCounterPrefs();
                   },
                 ),
                 const SizedBox(width: 5),
                 ElevatedButton(
                   child: const Text('マイナス'),
                   onPressed: () {
-                    countState.decrement();
-                    countState.setCounterPrefs();
+                    counterNotifier.decrement();
+                    counterNotifier.setCounterPrefs();
                   },
                 ),
               ],
@@ -47,8 +47,8 @@ class CounterApp extends HookConsumerWidget {
             ElevatedButton(
               child: const Text('削除'),
               onPressed: () {
-                countState.clear();
-                countState.setCounterPrefs();
+                counterNotifier.clear();
+                counterNotifier.setCounterPrefs();
               },
             ),
           ],

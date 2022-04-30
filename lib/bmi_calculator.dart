@@ -8,8 +8,8 @@ class BmiCalculator extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final calculate = ref.watch(bmiCalcProvider);
-    final calculateState = ref.watch(bmiCalcProvider.notifier);
+    final bmiCalc = ref.watch(bmiCalcProvider);
+    final bmiCalcNotifier = ref.watch(bmiCalcProvider.notifier);
 
     final heightTextEditingController = useTextEditingController();
     final weightTextEditingController = useTextEditingController();
@@ -21,7 +21,7 @@ class BmiCalculator extends HookConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('結果: $calculate'),
+              Text('結果: $bmiCalc'),
               TextFormField(
                 controller: heightTextEditingController,
                 decoration: const InputDecoration(
@@ -39,11 +39,11 @@ class BmiCalculator extends HookConsumerWidget {
               ElevatedButton(
                 child: const Text('計算'),
                 onPressed: () {
-                  calculateState.calculate(
+                  bmiCalcNotifier.calculate(
                     heightTextEditingController.text,
                     weightTextEditingController.text,
                   );
-                  calculateState.setDb(
+                  bmiCalcNotifier.setDb(
                     heightTextEditingController.text,
                     weightTextEditingController.text,
                   );
