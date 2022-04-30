@@ -15,6 +15,7 @@ class BmiCalculator extends HookConsumerWidget {
     final weightTextEditingController = useTextEditingController();
 
     return Scaffold(
+      appBar: AppBar(title: const Text('BmiCalculatorApp')),
       body: Form(
         child: Container(
           padding: const EdgeInsets.all(20),

@@ -57,9 +57,6 @@ class MyApp extends HookConsumerWidget {
 
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('title'),
-        ),
         body: _pageList[bottomNav.index],
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: bottomNav.index,

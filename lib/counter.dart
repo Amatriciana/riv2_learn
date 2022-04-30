@@ -19,6 +19,7 @@ class CounterApp extends HookConsumerWidget {
     }, []);
 
     return Scaffold(
+      appBar: AppBar(title: const Text('CounterApp')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
