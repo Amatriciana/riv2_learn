@@ -1,5 +1,10 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riv2_learn/database.dart';
+import 'package:sqflite/sqflite.dart';
+
+final databaseProvider = Provider<Future<Database>>(
+  (ref) => throw UnimplementedError(),
+);
 
 final bottomNavProvider = StateProvider<BottomNav>((ref) => BottomNav.counter);
 

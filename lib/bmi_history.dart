@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:riv2_learn/controller.dart';
-import 'package:riv2_learn/database.dart';
+
+import 'controller.dart';
 
 class BmiHistory extends HookConsumerWidget {
   const BmiHistory({Key? key}) : super(key: key);

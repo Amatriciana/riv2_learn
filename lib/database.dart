@@ -1,7 +1,7 @@
-import 'package:riv2_learn/main.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'main.dart';
+
+import 'controller.dart';
 
 class BmiHistoryDatabase {
   BmiHistoryDatabase(

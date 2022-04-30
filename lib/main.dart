@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path/path.dart';
-import 'package:riv2_learn/bmi_history.dart';
-
-import 'package:riv2_learn/controller.dart';
 import 'package:sqflite/sqflite.dart';
+
 import 'counter.dart';
 import 'bmi_calculator.dart';
 import 'bmi_history.dart';
-
-final databaseProvider = Provider<Future<Database>>(
-  (ref) => throw UnimplementedError(),
-);
+import 'controller.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
