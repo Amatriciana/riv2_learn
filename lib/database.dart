@@ -5,8 +5,8 @@ import 'package:path/path.dart';
 import 'controller.dart';
 
 // モデルクラス
-class BmiHistoryDatabase {
-  BmiHistoryDatabase(
+class BmiDatabase {
+  BmiDatabase(
       {this.id,
       required this.result,
       required this.height,
@@ -43,7 +43,7 @@ class BmiDbNotifier extends StateNotifier<List> {
   final Reader _read;
 
   // table'bmi_history'にデータを保存
-  Future<void> insertBmiHistory(BmiHistoryDatabase bmiHistory) async {
+  Future<void> insertBmiHistory(BmiDatabase bmiHistory) async {
     final Database db = await _read(databaseProvider);
     await db.insert(
       'bmi_history',
@@ -53,13 +53,13 @@ class BmiDbNotifier extends StateNotifier<List> {
   }
 
   // table'bmi_history'を読み込み、Listに格納し、Listを返す'
-  Future<List<BmiHistoryDatabase>> getBmiHistory() async {
+  Future<List<BmiDatabase>> getBmiHistory() async {
     final Database db = await _read(databaseProvider);
     final List<Map<String, dynamic>> maps = await db.query('bmi_history');
     return List.generate(
       maps.length,
       (index) {
-        return BmiHistoryDatabase(
+        return BmiDatabase(
           id: maps[index]['id'],
           result: maps[index]['result'],
           height: maps[index]['height'],
@@ -70,7 +70,7 @@ class BmiDbNotifier extends StateNotifier<List> {
   }
 
   // table'bmi_history'から指定の'id'があるレコードを更新
-  Future<void> updateBmiHistory(BmiHistoryDatabase bmiHistory) async {
+  Future<void> updateBmiHistory(BmiDatabase bmiHistory) async {
     final Database db = await _read(databaseProvider);
     await db.update(
       'bmi_history',

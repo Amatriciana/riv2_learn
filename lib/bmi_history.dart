@@ -18,6 +18,7 @@ class BmiHistory extends HookConsumerWidget {
     }, []);
 
     return Scaffold(
+      appBar: AppBar(title: const Text('BmiHistory')),
       body: ListView.builder(
         itemCount: bmiHistory.length,
         itemBuilder: (BuildContext context, int index) {

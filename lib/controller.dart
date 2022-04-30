@@ -66,7 +66,7 @@ class BmiCalcNotifier extends StateNotifier<String> {
 
   // 身長、体重、BMIをtableに保存
   Future<void> setDb(height, weight) async {
-    var bmiHistory = BmiHistoryDatabase(
+    var bmiHistory = BmiDatabase(
       result: state,
       height: double.parse(height),
       weight: double.parse(weight),
@@ -85,12 +85,12 @@ class BmiHistoryNotifier extends StateNotifier<List> {
 
   // tableからデータを取得、List<Map>型でstateに持たせる
   Future<void> getDb() async {
-    List aaa = await _read(bmiDbProvider.notifier).getBmiHistory();
-    List bbb = [];
-    for (var element in aaa) {
-      bbb.add(element.toMap());
+    List a = await _read(bmiDbProvider.notifier).getBmiHistory();
+    List b = [];
+    for (var e in a) {
+      b.add(e.toMap());
     }
-    state = bbb;
+    state = b;
   }
 
   // tableからデータを削除
