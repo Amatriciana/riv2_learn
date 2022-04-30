@@ -35,12 +35,11 @@ class BmiHistoryDatabase {
 /* TODO Providerである必要があるのか？
 ref.readを使いたく_readを使うためにProviderにした
 もっといいやり方ありそう */
-final bmiHistoryDbProvider =
-    StateNotifierProvider<BmiHistoryDbController, List>(
-        (ref) => BmiHistoryDbController(ref.read));
+final bmiDbProvider = StateNotifierProvider<BmiDbNotifier, List>(
+    (ref) => BmiDbNotifier(ref.read));
 
-class BmiHistoryDbController extends StateNotifier<List> {
-  BmiHistoryDbController(this._read) : super([]);
+class BmiDbNotifier extends StateNotifier<List> {
+  BmiDbNotifier(this._read) : super([]);
   final Reader _read;
 
   // table'bmi_history'にデータを保存
