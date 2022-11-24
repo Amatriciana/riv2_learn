@@ -33,18 +33,18 @@ class BmiDatabase {
 }
 
 /* TODO Providerである必要があるのか？
-ref.readを使いたく_readを使うためにProviderにした
+ref.readを使いたく_refを使うためにProviderにした
 もっといいやり方ありそう */
-final bmiDbProvider = StateNotifierProvider<BmiDbNotifier, List>(
-    (ref) => BmiDbNotifier(ref.read));
+final bmiDbProvider =
+    StateNotifierProvider<BmiDbNotifier, List>((ref) => BmiDbNotifier(ref));
 
 class BmiDbNotifier extends StateNotifier<List> {
-  BmiDbNotifier(this._read) : super([]);
-  final Reader _read;
+  BmiDbNotifier(this._ref) : super([]);
+  final Ref _ref;
 
   // table'bmi_history'にデータを保存
   Future<void> insertBmiHistory(BmiDatabase bmiHistory) async {
-    final Database db = await _read(databaseProvider);
+    final Database db = await _ref.read(databaseProvider);
     await db.insert(
       'bmi_history',
       bmiHistory.toMap(),
@@ -54,7 +54,7 @@ class BmiDbNotifier extends StateNotifier<List> {
 
   // table'bmi_history'を読み込み、Listに格納し、Listを返す'
   Future<List<BmiDatabase>> getBmiHistory() async {
-    final Database db = await _read(databaseProvider);
+    final Database db = await _ref.read(databaseProvider);
     final List<Map<String, dynamic>> maps = await db.query('bmi_history');
     return List.generate(
       maps.length,
@@ -71,7 +71,7 @@ class BmiDbNotifier extends StateNotifier<List> {
 
   // table'bmi_history'から指定の'id'があるレコードを更新
   Future<void> updateBmiHistory(BmiDatabase bmiHistory) async {
-    final Database db = await _read(databaseProvider);
+    final Database db = await _ref.read(databaseProvider);
     await db.update(
       'bmi_history',
       bmiHistory.toMap(),
@@ -83,7 +83,7 @@ class BmiDbNotifier extends StateNotifier<List> {
 
   // table'bmi_history'から指定の'id'があるレコードを削除
   Future<void> deleteBmiHistory(int id) async {
-    final Database db = await _read(databaseProvider);
+    final Database db = await _ref.read(databaseProvider);
     await db.delete(
       'bmi_history',
       where: "id = ?",
